@@ -57,15 +57,19 @@ class Dog
   end
 
   def self.find_by_id(id)
-    sql = <<-SQL
-      SELECT *
-      FROM dogs
-      WHERE id = ?
-      LIMIT 1
-    SQL
-    DB[:conn].execute(sql, id).map do |dog_row|
-      self.new_from_db(dog_row)
-    end.first
+    # sql = <<-SQL
+    #   SELECT *
+    #   FROM dogs
+    #   WHERE id = ?
+    #   LIMIT 1
+    # SQL
+    # DB[:conn].execute(sql, id).map do |dog_row|
+    #   self.new_from_db(dog_row)
+    # end.first
+
+    sql = "SELECT * FROM dogs WHERE id = ?"
+    result = DB[:conn].execute(sql, id)[0]
+    Dog.new(result[0], result[1], result[2])
   end
 
   def self.new_from_db(row)
@@ -76,6 +80,7 @@ class Dog
     new_fuzzy
   end
 
-  def find_or_create_by
+  def find_or_create_by(name: name, breed: breed)
+    
   end
 end
