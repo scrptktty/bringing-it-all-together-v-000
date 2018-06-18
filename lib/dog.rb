@@ -66,9 +66,9 @@ class Dog
     # DB[:conn].execute(sql, id).map do |dog_row|
     #   self.new_from_db(dog_row)
     # end.first
-
     sql = "SELECT * FROM dogs WHERE id = ?"
     match = DB[:conn].execute(sql, id)[0]
+    binding.pry
     Dog.new(match[0], match[1], match[2])
   end
 
