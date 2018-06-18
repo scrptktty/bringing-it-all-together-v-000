@@ -81,6 +81,7 @@ class Dog
 
   def self.find_or_create_by(name: name, breed: breed)
     puppy = DB[:conn].execute("SELECT * FROM dogs WHERE name = ? AND breed = ?", name, breed)
+    # why no hash for the above interpolation?
     if !puppy.empty?
       puppy_info = puppy[0]
       puppy = Dog.new(id: puppy_info[0], name: puppy_info[1], breed: puppy_info[2])
@@ -88,5 +89,17 @@ class Dog
       puppy = self.create(name: name, breed: breed)
     end
     puppy
+  end
+
+  def self.find_by_name(name)
+    sql = <<-SQL
+      SELECT *
+      FROM dogs
+      WHERE name = ?
+      LIMIT 1
+    SQL
+    DB[:conn].execute(sql, name).map do |dog_row|
+      self.new_from_db(dog_row)
+    end.first
   end
 end
