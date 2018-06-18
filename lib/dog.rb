@@ -68,8 +68,8 @@ class Dog
     # end.first
 
     sql = "SELECT * FROM dogs WHERE id = ?"
-    result = DB[:conn].execute(sql, id)[0]
-    Dog.new(result[0], result[1], result[2])
+    match = DB[:conn].execute(sql, id)[0]
+    Dog.new(match[0], match[1], match[2])
   end
 
   def self.new_from_db(row)
@@ -81,6 +81,6 @@ class Dog
   end
 
   def find_or_create_by(name: name, breed: breed)
-    
+
   end
 end
