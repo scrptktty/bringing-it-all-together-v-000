@@ -79,7 +79,7 @@ class Dog
     new_fuzzy
   end
 
-  def find_or_create_by(name: name, breed: breed)
+  def self.find_or_create_by(name: name, breed: breed)
     puppy = DB[:conn].execute("SELECT * FROM dogs WHERE name = ? AND breed = ?", name: name, breed: breed)
     if !puppy.empty?
       puppy_info = puppy[0]
