@@ -69,7 +69,7 @@ class Dog
     sql = "SELECT * FROM dogs WHERE id = ?"
     match = DB[:conn].execute(sql, id)[0]
     binding.pry
-    Dog.new(match[0], match[1], match[2])
+    Dog.new(id: match[0], name: match[1], breed: match[2])
   end
 
   def self.new_from_db(row)
