@@ -68,7 +68,6 @@ class Dog
     # end.first
     sql = "SELECT * FROM dogs WHERE id = ?"
     match = DB[:conn].execute(sql, id)[0]
-    binding.pry
     Dog.new(id: match[0], name: match[1], breed: match[2])
   end
 
